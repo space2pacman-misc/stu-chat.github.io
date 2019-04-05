@@ -45,6 +45,7 @@ function sendMessage() {
 	if(resolution) {
 		server.send(nick + ": " + text.value);
 		text.value = "";
+		text.focus();
 	}
 }
 
@@ -73,6 +74,7 @@ function checkAddress() {
 	if(window.location.hash) {
 		chat.style.display = "block";
 		authorization.style.display = "none";
+		text.focus();
 		createServer();
 	} else {
 		authorization.style.display = "block";
