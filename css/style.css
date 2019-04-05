@@ -1,0 +1,99 @@
+@font-face {
+	src: url("../fonts/OpenSans-Regular.ttf");
+	font-family: "Open-sans";
+}
+
+body {
+	margin: 0;
+	font-family: "Open-sans";
+}
+
+input {
+	font-family: "Open-sans";
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+.authorization {
+	width: 210px;
+	transform: translate(-50%,-50%);
+	margin-top: 50vh;
+	margin-left: 50%;
+    display: none;
+}
+.room {
+	width: 100%;
+	box-sizing: border-box;
+    background: none;
+    border: none;
+    border-bottom: 1px solid #dcdcdc;
+    margin-bottom: 10px;
+    text-align: center;
+    padding-bottom: 10px;
+    outline: none;
+}
+.connect {
+	width: 100%;
+	box-sizing: border-box;
+    background: none;
+    border: 1px solid #dcdcdc;
+    outline: none;
+    padding: 10px 10px;
+    cursor: pointer;
+}
+.chat {
+	display: none;
+}
+
+.message--left {
+	float: left;
+}
+
+.message--right {
+	float: right;
+}
+
+.control {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    z-index: 1;
+}
+
+.text {
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+    padding: 0px 15px;
+    border: 1px solid #dcdcdc;
+    border-right: none;
+}
+
+.send {
+    width: 100px;
+    box-sizing: border-box;
+    background: #fff;
+    border: 1px solid #dcdcdc;
+    outline: none;
+    padding: 10px 10px;
+    cursor: pointer;
+}
+
+.messages {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    padding-bottom: 42px;
+}
+
+.row {
+    padding: 2px 15px;
+}
