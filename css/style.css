@@ -96,4 +96,5 @@ input {
 
 .row {
     padding: 2px 15px;
+    word-break: break-word;
 }

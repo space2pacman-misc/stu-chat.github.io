@@ -39,13 +39,29 @@ var resolution = false;
 var server;
 var nick;
 
+function checkUsers() {
+	if(resolution) {
+		text.placeholder = "";
+		text.disabled = false;
+		send.disabled = false;
+	} else {
+		text.placeholder = "Стукачей нет";
+		text.disabled = true;
+		send.disabled = true;
+	}
+}
+
 function sendMessage() {
-	if(text.value == "") return;
+	if(text.value == "" || text.value == " ") return;
 	// resolution меняется на true когда приходит ответ от сервера в событии ping
 	if(resolution) {
-		server.send(nick + ": " + text.value);
+		var message = text.value;
+		message = message.replace(/</gi, "&lt;").replace(/>/gi, "&gt;");
+		server.send(nick + ": " + message);
 		text.value = "";
 		text.focus();
+	} else {
+		
 	}
 }
 
@@ -54,7 +70,7 @@ function getNick() {
 }
 
 function createServer() {
-	server = new Bugout(window.location.hash);
+	server = new Bugout(window.location.hash/*, {announce: ["wss://echo.websocket.org"]}*/);
 	server.on("message", function(address, message) {
 		if(address != this.address()) {
 			messages.innerHTML += "<div class='row clearfix'><div class='message message--left'>" + message + "</div></div>";
@@ -62,7 +78,20 @@ function createServer() {
 			messages.innerHTML += "<div class='row clearfix'><div class='message message--right'>" + message + "</div></div>";
 		}
 	});
-	server.once("ping", () => { resolution = true; });
+	server.once("ping", () => { 
+		resolution = true;
+		checkUsers();
+	});
+	server.on("connections", (users) => {
+		console.log("connections")
+		if(users == 0) {
+			resolution = false;
+			checkUsers();
+		} else {
+			resolution = true;
+			checkUsers();
+		}
+	})
 }
 
 function connection() {
@@ -84,6 +113,7 @@ function checkAddress() {
 
 function init() {
 	checkAddress();
+	checkUsers();
 	nick = getNick();
 	connect.addEventListener("click", connection)
 	room.addEventListener("keydown", e => e.keyCode == 13 && connection());
@@ -92,3 +122,16 @@ function init() {
 }
 
 init();
+
+var diff;
+var timeStart;
+var timeEnd;
+document.addEventListener("touchstart", function() {
+	timeStart = new Date;
+})
+
+document.addEventListener("touchend", function() {
+	timeEnd = new Date;
+	diff = timeEnd - timeStart;
+	console.log(diff)
+})
